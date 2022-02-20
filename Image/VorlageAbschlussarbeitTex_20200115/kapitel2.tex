@@ -1,0 +1,79 @@
+\chapter{Beispiele}
+\label{beispiele}
+
+Das hier ist das Kapitel Beispiele ...
+
+\section[$e^{x}$ - Beispiel]{\boldmath{$e^{x}$} - Beispiel}
+\label{e_hoch_x_beispiel}
+
+...mit einem Abschnitt in dem eine Formel geschrieben wurde ...
+
+\subsection{Jetzt aber wirklich}
+\label{jetzt_aber_wirklich}
+
+... mit noch einem folgenden Unterabschnitt. "`Tiefer"' sollte man jedoch in den Kapiteln nicht gehen.\newline
+
+Hier folgen nun (wirklich) die Beispiele mit den wichtigsten Elementen.
+
+Hier kommt ein Bild im pdf-Format:
+\begin{figure}[ht]
+ \begin{center}
+  \includegraphics[width=0.8\textwidth]{bilder/TU_BS_IMAB.pdf}
+  \caption{Logo des IMAB TU Braunschweig}
+  \label{fig:logo_IMAB}
+ \end{center}
+\end{figure}
+
+Und hier ein Beispiel für eine Tabelle.
+\begin{table}[ht]
+ \begin{center}
+ \caption{Verwendete Matrizen}
+ \label{tab:matrizen}
+  \begin{tabular}{|l|c|c|}
+   \hline
+   Matrix & Dimension & Symbol \\
+   \hline
+   Systemmatrix & $n \times n$ & ${\textbf A}$  \\
+   \hline
+   Ausgangsmatrix & $m \times n$ & ${\textbf C}$  \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+Und wieder ein Bild:
+\begin{figure}[ht]
+	\centering
+	 \includegraphics[width=0.4\textwidth]{bilder/motor.jpg}
+	\caption{Abbildung eines Elektromotors}
+	\label{fig:motor}
+\end{figure}
+
+Jetzt kommt mal Mathematik\footnote{Man beachte: Es gibt viele Möglichkeiten Formeln darzustellen. Für nähere Informationen siehe bitte die amsmath-Dokumentation.} an die Reihe:
+\begin{equation}
+\begin{split}
+		 K(s) &= V_R \cdot \frac{1}{T_I \cdot s}\cdot \left( T_I \cdot s + 1 \right) \\
+					  &= V_R \cdot \left( 1 + \frac{1}{T_I \cdot s} \right) = \underbrace{V_R}_{P-Anteil} + \underbrace{\frac{V_R}{T_I \cdot s}}_{I-Anteil} \\
+						&\text{mit $V_R$ : Reglerverstärkung} 
+\end{split}
+\end{equation}
+
+Hier nehmen wir Bezug auf Abbildung \ref{fig:motor} auf Seite \pageref{fig:motor}: Dort sieht man einen Elektromotor.\newline
+Nachdem dieser Zeilenumbruch durchgeführt wurde, kommen jetzt noch andere Sachen an die Reihe\footnote{So z.~B. die Verwendung von Fußnoten.}. Daneben aber auch die Anwendung von \textit{kursiver} und \textbf{fettgedruckter} Schrift. Auch das paraphrasierte Zitieren ist nicht zu verachten\cite{PROFMUSTER11}.
+
+Weil das hier alles so komplex ist, kommt jetzt eine Aufzählung:
+\begin{enumerate}
+	\item Das passiert als erstes.
+	\item Und das hier als zweites.
+	\item ... und als drittes das hier.
+\end{enumerate}
+Oder wie wäre es mit einer Auflistung?
+\begin{itemize}
+	\item Asynchronmaschine
+	\item Synchronmaschine
+	\item Gleichstrommaschine
+\end{itemize}
+Bei machen Arbeiten macht es evtl. auch Sinn, Quelltext in den Fließtext einzufügen, um Sachverhalte zu verdeutlichen. 
+\begin{verbatim}
+	function my_function(input:string; var output: string):Integer;
+\end{verbatim}
