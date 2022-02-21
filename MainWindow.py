@@ -34,18 +34,25 @@ class MainwindowsObject(object):
         #Menu
         self.menuObject.showMenu(root)
         
-        #Create Paned window  
+        #Create Paned window
+        
         panelwindow=ttk.Panedwindow(root, orient=HORIZONTAL)  
         framNetworkConfiguration=ttk.Frame(panelwindow,width=500,height=300, relief=SUNKEN)
         panelwindowNetworkConfiguration=ttk.Panedwindow(framNetworkConfiguration, orient=VERTICAL)
         panelwindow.add(framNetworkConfiguration, weight=1)  
         panelwindow.pack(fill=BOTH, expand=True)  
         panelwindowNetworkConfiguration.pack(fill=BOTH, expand=True)   
-        
+
+        impedance = StringVar()
+        amplitude = StringVar()
+        capacite = StringVar()
+        pulsation = StringVar()
+        y0 = StringVar()
+        x1,x2 = StringVar(),StringVar()
         #Diagram
         self.diagramTabObject.showDiagram(panelwindow)
         #Configuration
-        self.configurationObject.showConfiguration(panelwindowNetworkConfiguration)
+        self.configurationObject.showConfiguration(panelwindowNetworkConfiguration,impedance, amplitude, capacite,pulsation,y0,x1,x2)
         #Network
         self.networkObject.showNetwork(panelwindowNetworkConfiguration)
         
