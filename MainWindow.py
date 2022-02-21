@@ -50,7 +50,9 @@ class MainwindowsObject(object):
         y0 = StringVar()
         x1,x2 = StringVar(),StringVar()
         #Diagram
-        self.diagramTabObject.showDiagram(panelwindow)
+
+        img_0 = PhotoImage(file="image_1.png")
+        self.diagramTabObject.showDiagram(panelwindow,img_0)
         #Configuration
         self.configurationObject.showConfiguration(panelwindowNetworkConfiguration,impedance, amplitude, capacite,pulsation,y0,x1,x2)
         #Network
