@@ -8,6 +8,7 @@ from time import strftime
 from matplotlib import pyplot as plt
 import numpy as np
 from math import sin, cos, pi, exp
+from DiagramTab import IMAGE
 
 #Fonctions pour la résolution numérique
 
@@ -116,17 +117,14 @@ class ConfigurationObject(object):
         plt.savefig("courbfig.png")
 
         #Here I want to plot in the Diargamtab
-        #I clear the diagramtab
-        for widget in self.diagramTab.frameDiagram.winfo_children():
-            widget.destroy
-
-        #I create a canvas in the framediagram of the diagramtab then I put the image in it
         myFrame  = self.diagramTab.frameDiagram
-        myCanvas = Canvas(myFrame,width = 500, height= 500)
-        img = PhotoImage(file="courbfig.png")
-        myCanvas.create_image(0,0,anchor=NW, image = img)
-        myCanvas.grid(row = 0 , column = 0)
-        myFrame.grid_columnconfigure(0,weight=1)
+
+        #I cleear the canvas
+        for widget in myFrame.winfo_children():
+            widget.destroy()
+
+        cv = IMAGE(myFrame,"courbfig.png")
+        cv.pack(fill=BOTH,expand=True)
 
         plt.show()
 
@@ -141,7 +139,7 @@ class ConfigurationObject(object):
         self.x2 = x2
         
         #Create Frames  
-        frameConfiguration=ttk.Frame(panelwindowNetworkConfiguration,width=400,height=300, relief=SUNKEN)  
+        frameConfiguration=ttk.Frame(panelwindowNetworkConfiguration,width=400,height=400, relief=SUNKEN)  
         panelwindowNetworkConfiguration.add(frameConfiguration, weight=1)
         
         frameConfiguration.update()
@@ -155,45 +153,45 @@ class ConfigurationObject(object):
         impe=ttk.Entry(frameConfiguration, textvariable=impedance,width= l2)
         ohm= ttk.Label(frameConfiguration, text="[Ohms](\u03A9)",width=l3, anchor=W)
         label_impedance.grid(row=1, column=0, pady=10, padx=2,sticky=E, ipady = 4)
-        impe.grid(row = 1, column=1, sticky=E+W, columnspan=2, ipady=4)
-        ohm.grid(row = 1, column = 3, sticky=W)
+        impe.grid(row = 1, column=1, sticky=E+W, columnspan=3, ipady=4)
+        ohm.grid(row = 1, column = 4, sticky=W)
 
         label_amplitude=ttk.Label(frameConfiguration, text="Amplitude a : ", width= l1,anchor=W)
         ampli=ttk.Entry(frameConfiguration, textvariable=amplitude,width= l2)
         volts1= ttk.Label(frameConfiguration, text="[Volts](V)",width=l3, anchor=W)
         label_amplitude.grid(row=2, column=0, pady=10, padx=2,sticky=E)
-        ampli.grid(row = 2, column=1, sticky=E+W, columnspan=2,ipady=4)
-        volts1.grid(row = 2, column = 3, sticky=W)
+        ampli.grid(row = 2, column=1, sticky=E+W, columnspan=3,ipady=4)
+        volts1.grid(row = 2, column = 4, sticky=W)
 
         label_capacite=ttk.Label(frameConfiguration, text="Capacité C : ", width= l1,anchor=W)
         capa=ttk.Entry(frameConfiguration, textvariable=capacite,width= l2)
         nF= ttk.Label(frameConfiguration, text="[nF]",width=l3, anchor=W)
         label_capacite.grid(row=3, column=0, pady=10, padx=2,sticky=E)
-        capa.grid(row = 3, column=1, sticky=E+W, columnspan=2,ipady=4)
-        nF.grid(row = 3, column = 3, sticky=W)
+        capa.grid(row = 3, column=1, sticky=E+W, columnspan=3,ipady=4)
+        nF.grid(row = 3, column = 4, sticky=W)
 
         label_pulsation=ttk.Label(frameConfiguration, text="Pulsation w : ", width= l1,anchor=W)
         pulsa=ttk.Entry(frameConfiguration, textvariable=pulsation,width= l2)
         rad_s= ttk.Label(frameConfiguration, text="[rad/s]",width=l3, anchor=W)
         label_pulsation.grid(row=4, column=0, pady=10, padx=2,sticky=E)
-        pulsa.grid(row = 4, column=1, sticky=E+W, columnspan=2,ipady=4)
-        rad_s.grid(row = 4, column = 3, sticky=W)
+        pulsa.grid(row = 4, column=1, sticky=E+W, columnspan=3,ipady=4)
+        rad_s.grid(row = 4, column = 4, sticky=W)
 
         label_y0=ttk.Label(frameConfiguration, text="S initiale : ", width= l1,anchor=W)
         y0_entry=ttk.Entry(frameConfiguration, textvariable=y0,width= l2)
         label_y0.grid(row=5, column=0, pady=10, padx=2,sticky=E)
-        y0_entry.grid(row = 5, column=1, sticky=E+W, columnspan=2,ipady=4)
+        y0_entry.grid(row = 5, column=1, sticky=E+W, columnspan=3,ipady=4)
         volts= ttk.Label(frameConfiguration, text="[Volts](V)",width=l3, anchor=W)
-        volts.grid(row = 5, column = 3, sticky=W)
+        volts.grid(row = 5, column = 4, sticky=W)
 
-        labelDe = ttk.Label(frameConfiguration,text="Tracer de: ", anchor=W)
+        labelDe = ttk.Label(frameConfiguration,text="Tracer de: ", anchor=W, width=l1)
         x1_entry = ttk.Entry(frameConfiguration,textvariable=x1, width=l3)
         x2_entry = ttk.Entry(frameConfiguration,textvariable=x2, width=l3)
-        labelA = ttk.Label(frameConfiguration,text="À")
+        labelA = ttk.Label(frameConfiguration,text="À", width = l3)
         labelDe.grid(row = 6, column = 0, pady = 10)
-        x1_entry.grid(row = 6, column = 1,ipady=4)
-        labelA.grid(row = 6, column =2)
-        x2_entry.grid(row=6, column= 3,ipady=4)
+        x1_entry.grid(row = 6, column = 1,ipady=4,sticky=W)
+        labelA.grid(row = 6, column =2, sticky=E+W)
+        x2_entry.grid(row=6, column= 3,ipady=4,sticky=E)
 
         valider = ttk.Button(frameConfiguration,text="VALIDER", command=self.plotGraphs, width=l3)
         valider.grid(row =7, column =1,pady= 8, columnspan=2,ipady=4)
