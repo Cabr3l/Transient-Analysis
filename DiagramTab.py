@@ -10,6 +10,7 @@ class DiagramTabObject(object):
     "Klasse für die Sinus Spannung"
     def __init__(self):
         self.projectTitle = 'Transient Analysis'
+        self.frameDiagram = NONE
         
     def showDiagram(self,panelwindow,img_0):
         #Create Frams  
@@ -18,5 +19,8 @@ class DiagramTabObject(object):
         panelwindow.add(frameDiagram, weight=1)
         cv = Canvas(frameDiagram,width = 500, height=400, background="ivory")
         cv.create_image(0,0, anchor=NW, image=img_0)
-        cv.pack(padx=10, pady = 10)
+        cv.grid(row = 0, column=0,padx=10, pady = 10)
+        frameDiagram.grid_columnconfigure(0,weight=1)
+
+        self.frameDiagram = frameDiagram #This is done so I can access it elsewhere
         
