@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter.ttk import *
 from tkinter import ttk 
 from time import strftime
+from PIL import Image, ImageTk
 
 # ça c'est la puissante classse qui contient la methode me permettant de faire varier la taille de l'image avec la taille du frame dans lequel il se trouve
 class IMAGE(Frame):
