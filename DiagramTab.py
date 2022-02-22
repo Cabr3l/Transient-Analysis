@@ -8,12 +8,11 @@ from PIL import Image, ImageTk
 
 # ça c'est la puissante classse qui contient la methode me permettant de faire varier la taille de l'image avec la taille du frame dans lequel il se trouve
 class IMAGE(Frame):
-    def __init__(self, master, *pargs):
-        Frame.__init__(self, master, *pargs)
+    def __init__(self, master,nom):
+        Frame.__init__(self, master)
 
-        self.image = Image.open("image.png")
+        self.image = Image.open(f"{nom}")
         self.img_copy= self.image.copy()
-
 
         self.background_image = ImageTk.PhotoImage(self.image)
 
@@ -44,7 +43,8 @@ class DiagramTabObject(object):
 
         frameDiagram=ttk.Frame(panelwindow,width=500,height=400, relief=SUNKEN) 
         panelwindow.add(frameDiagram, weight=1)
-        cv = IMAGE(frameDiagram)
+        cv = IMAGE(frameDiagram,"image.png")
         cv.pack(fill=BOTH,expand=True)
+        
         self.frameDiagram = frameDiagram #This is done so I can access it elsewhere
         
