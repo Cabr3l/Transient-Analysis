@@ -1,0 +1,15 @@
+					***NOTICE D'UTILISATION***
+
+1) Dans chaque champ d'entrée, l'utilisateur devra entrer une valeur numérique(un nombre entier ou décimal).
+
+2) L'unité de chaque grandeur est dejà donné à dorite du champ d'entrée, donc l'utilisateur ne doit préciser aucune unité dans le champ.
+
+4)dans le champ "Tracer de......À....", l'utilisateur devra entrer "de" l'bscisse initiale et dans le champ "À", l'abscisse finale.
+
+5)la courbe sera tracé dans l'intervalle [abscisse initiale; abscisse finale].
+
+6)Tous les champs doivent être rempli convenablement.
+
+NB: "AUCUN CHAMP NE DOIT ÊTRE VIDE SOUS PEINE DE SUCITER UN MAUVAIS COMPORTEMENT DU PROGRAMME".
+
+7)Une fois tous les champs remplis, CLIQUER sur le bouton "VALIDER" et apprécier la beauté des résultats.
