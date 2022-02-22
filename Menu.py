@@ -41,5 +41,3 @@ class MenuObject(object):
         help_.add_command(label='About Transient Analysis', command=None)
         # display Menu
         root.config(menu=menubar)
-
-print("Salaud")
