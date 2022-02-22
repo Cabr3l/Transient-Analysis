@@ -7,6 +7,7 @@ from tkinter import ttk
 from time import strftime
 import time
 import os
+from PIL import Image, ImageTk
 
 #cette classe est analogue à la fonction IMAGE du fichier DiagramTab
 class IMAGE(Frame):
