@@ -19,7 +19,7 @@ class MainwindowsObject(object):
         self.menuObject = MenuObject()
         self.diagramTabObject = DiagramTabObject()
         self.networkObject = NetworkTabObject()
-        self.configurationObject = ConfigurationObject()
+        self.configurationObject = ConfigurationObject(self.diagramTabObject)#This is done so I can plot when I have all the datas
         self.outputTab = OutputTabObject()
         self.transientAnalyzeObject =  TransientAnalyzeObject()
         
@@ -49,7 +49,9 @@ class MainwindowsObject(object):
         pulsation = StringVar()
         y0 = StringVar()
         x1,x2 = StringVar(),StringVar()
+
         #Diagram
+        #Here we have to plot the graph
 
         img_0 = PhotoImage(file="image.png")
         self.diagramTabObject.showDiagram(panelwindow,img_0)
