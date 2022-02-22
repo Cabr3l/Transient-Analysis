@@ -44,7 +44,7 @@ class NetworkTabObject(object):
         
     def showNetwork(self,panelwindowNetworkConfiguration):
         #Create Frams  
-        frameNetwork=ttk.Frame(panelwindowNetworkConfiguration,width=100,height=100, relief=SUNKEN)
+        frameNetwork=ttk.Frame(panelwindowNetworkConfiguration,width=100,height=80, relief=SUNKEN)
         panelwindowNetworkConfiguration.add(frameNetwork, weight=1)
         self.frameNetwork = frameNetwork
         cv=IMAGE(frameNetwork)
