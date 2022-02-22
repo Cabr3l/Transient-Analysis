@@ -8,7 +8,12 @@ from time import strftime
 from matplotlib import pyplot as plt
 import numpy as np
 from math import sin, cos, pi, exp
+
+from sympy import expand
 from DiagramTab import IMAGE
+
+#Paramètres de longueur, ils me seront utiles un peu partout
+l1,l2,l3 =0,0,0
 
 #Fonctions pour la résolution numérique
 
@@ -65,24 +70,35 @@ def solution(K,D,alpha, beta, w,t):
 class ConfigurationObject(object):
     "Klasse für die Sinus Spannung"
 
-    def __init__(self, diagramTab):
+    def __init__(self, diagramTab,networkTab):
         self.diagramTab = diagramTab
+        self.networkTab = networkTab
 
 
     def plotGraphs(self):
         #Initialition of variables for ploting
-        global z1, a,w, C, x_1, x_2, y_0
+        global z1, a,w, C, x_1, x_2, y_0,L,typeCircuit
 
         z1 = float(self.impedance.get())
         a = float(self.amplitude.get())
         w = float(self.pulsation.get())
-        C = float(self.capacite.get())
         x_1 = float(self.x1.get())
         x_2 = float(self.x2.get())
         y_0 = float(self.y0.get())
+        typeCircuit = int(self.controleCircuit.get())
 
-        #Initialisation of vital variables for ploting
-        D=1/(z1*C)
+        #Initialisation of vital variables for ploting (here I was still thinking we only had a capacitive circuit to solve)
+        #La différence entre le cas inductif et le cas capacitif se situe au niveau des constantes D et A
+        A, D=0,0
+        if typeCircuit == 1:
+            C = float(self.capacite.get())
+            D=1/(z1*C)
+            A = a*D
+        elif typeCircuit == 2:    
+            L = float(self.inductence.get())
+            D = z1/L
+            A = -a*D
+        
         A=a*D
         B=a*w
         alpha=(A*D+B*w)/(D**2 + w**2)
@@ -92,14 +108,13 @@ class ConfigurationObject(object):
         y=[]
         t0 = x_1
 
+
         ####Here is where we define the number of points to be ploted
         n=500
         ######
 
         pas = (x_2-x_1)/n
 
-        fig=plt.figure(figsize=(5,4))   #ligne où on modifie la taille du screen
-        plt.ioff()
         for k in range(n+1):
             x.append(t0)
             y.append(solution(K,D,alpha, beta, w,t0))
@@ -128,7 +143,55 @@ class ConfigurationObject(object):
 
         plt.show()
 
-    def showConfiguration(self,panelwindowNetworkConfiguration, impedance, amplitude, capacite, pulsation, y0, x1,x2):
+    #Voici comment on a implémenté le changement de circuit
+    def circuit1(self):
+        self.controleCircuit.set(1)
+
+        #Je supprime tout ce qui est à la ligne de la capacité/inductence/résistance(Je gère pas encore la résistance)
+        self.label_inductence.grid_forget()
+        self.induct.grid_forget()
+        self.henry.grid_forget()
+
+        #Je mets tout ce qui est censé être là
+        self.label_capacite=ttk.Label(self.frameConfiguration, text="Capacité C : ", width= l1,anchor=W)
+        self.capa=ttk.Entry(self.frameConfiguration, textvariable=self.capacite,width= l2)
+        self.nF= ttk.Label(self.frameConfiguration, text="[nF]",width=l3, anchor=W)
+        self.label_capacite.grid(row=3, column=0, pady=10, padx=2,sticky=W)
+        self.capa.grid(row = 3, column=1, sticky=E+W, columnspan=3,ipady=4)
+        self.nF.grid(row = 3, column = 4, sticky=W)
+
+        #J'enlève l'image en cours
+        for widget in self.networkTab.frameNetwork.winfo_children():
+            widget.destroy()
+        #Je mets l'image du circuit 1
+        imgCircuit1 = IMAGE(self.networkTab.frameNetwork,"circuit.png")
+        imgCircuit1.pack(fill=BOTH, expand=True)
+
+    def circuit2(self):
+        self.controleCircuit.set(2)
+
+        #Je supprime tout ce qui est à la ligne de la capacité/inductence/résistance(Je gère pas encore la résistance)
+        self.label_capacite.grid_forget()
+        self.capa.grid_forget()
+        self.nF.grid_forget()
+
+        #Je mets tout ce qui est censé être là
+        self.label_inductence=ttk.Label(self.frameConfiguration, text="Inductence L : ", width= l1,anchor=W)
+        self.induct=ttk.Entry(self.frameConfiguration, textvariable=self.inductence,width= l2)
+        self.henry= ttk.Label(self.frameConfiguration, text="[H]",width=l3, anchor=W)
+        self.label_inductence.grid(row=3, column=0, pady=10, padx=2,sticky=W)
+        self.induct.grid(row = 3, column=1, sticky=E+W, columnspan=3,ipady=4)
+        self.henry.grid(row = 3, column = 4, sticky=W)
+
+        #J'enlève l'image en cours
+        for widget in self.networkTab.frameNetwork.winfo_children():
+            widget.destroy()
+        #Je mets l'image du circuit 1
+        imgCircuit1 = IMAGE(self.networkTab.frameNetwork,"circuit1.png")
+        imgCircuit1.pack(fill=BOTH, expand=True) 
+
+
+    def showConfiguration(self,panelwindowNetworkConfiguration, impedance, amplitude, capacite, pulsation, y0, x1,x2,inductence, controleCircuit):
         #Instanciating the attributes
         self.impedance = impedance
         self.amplitude = amplitude
@@ -137,9 +200,11 @@ class ConfigurationObject(object):
         self.y0 = y0
         self.x1 = x1
         self.x2 = x2
+        self.inductence = inductence
+        self.controleCircuit = controleCircuit
         
         #Create Frames  
-        frameConfiguration=ttk.Frame(panelwindowNetworkConfiguration,width=400,height=400, relief=SUNKEN)  
+        frameConfiguration=ttk.Frame(panelwindowNetworkConfiguration,width=400,height=500, relief=SUNKEN)  
         panelwindowNetworkConfiguration.add(frameConfiguration, weight=1)
         
         frameConfiguration.update()
@@ -170,6 +235,10 @@ class ConfigurationObject(object):
         capa.grid(row = 3, column=1, sticky=E+W, columnspan=3,ipady=4)
         nF.grid(row = 3, column = 4, sticky=W)
 
+        label_inductence=ttk.Label(frameConfiguration, text="Inductence L : ", width= l1,anchor=W)
+        induct=ttk.Entry(frameConfiguration, textvariable=inductence,width= l2)
+        henry= ttk.Label(frameConfiguration, text="[H]",width=l3, anchor=W)
+
         label_pulsation=ttk.Label(frameConfiguration, text="Pulsation w : ", width= l1,anchor=W)
         pulsa=ttk.Entry(frameConfiguration, textvariable=pulsation,width= l2)
         rad_s= ttk.Label(frameConfiguration, text="[rad/s]",width=l3, anchor=W)
@@ -194,9 +263,21 @@ class ConfigurationObject(object):
         x2_entry.grid(row=6, column= 3,ipady=4,sticky=E)
 
         valider = ttk.Button(frameConfiguration,text="VALIDER", command=self.plotGraphs, width=l3)
-        valider.grid(row =7, column =1,pady= 8, columnspan=2,ipady=4)
+        valider.grid(row =8, column =2,pady= 8,ipady=4)
 
+        circuit1 = ttk.Button(frameConfiguration, text = "Premier circuit", command = self.circuit1)
+        circuit1.grid(row = 7,column= 1, pady = 4, ipady= 2)
+        circuit2 = ttk.Button(frameConfiguration, text = "Second circuit", command = self.circuit2)
+        circuit2.grid(row = 7,column= 2, pady = 4, ipady= 2)
+        circuit3 = ttk.Button(frameConfiguration, text = "Troisième circuit", command = NONE)
+        circuit3.grid(row = 7,column= 3, pady = 4, ipady= 2)
+
+        #Gestion de l'agrandissement
+        frameConfiguration.grid_columnconfigure(0,weight=1)
         frameConfiguration.grid_columnconfigure(1,weight=1)
+        frameConfiguration.grid_columnconfigure(2,weight=1)
+        frameConfiguration.grid_columnconfigure(3,weight=1)
+        frameConfiguration.grid_columnconfigure(4,weight=1)
         frameConfiguration.grid_rowconfigure(0,weight=1)
         frameConfiguration.grid_rowconfigure(1,weight=1)
         frameConfiguration.grid_rowconfigure(2,weight=1)
@@ -205,6 +286,18 @@ class ConfigurationObject(object):
         frameConfiguration.grid_rowconfigure(5,weight=1)
         frameConfiguration.grid_rowconfigure(6,weight=1)
         frameConfiguration.grid_rowconfigure(7,weight=1)
+        frameConfiguration.grid_rowconfigure(8,weight=1)
+
+        #Les paramètres pour ajouter l'inductence et la capacité seront maintenat des attributs de l'instance de la classe pour être utilisés ailleurs
+        self.label_capacite = label_capacite
+        self.label_inductence = label_inductence
+        self.capa = capa
+        self.induct = induct
+        self.nF = nF
+        self.henry = henry
+
+        #L'attribut frameConfiguration doit être mis à jour
+        self.frameConfiguration = frameConfiguration
 
 
 
