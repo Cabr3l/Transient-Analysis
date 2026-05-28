@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaxSur — Inscription</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1A56A8;
+      --blue-dark: #0f3a7a;
+      --blue-mid: #378ADD;
+      --blue-light: #E6F1FB;
+      --gold: #C8970A;
+      --gold-light: #FDF3D0;
+      --gold-border: #e0c060;
+      --green: #3B6D11;
+      --green-light: #EAF3DE;
+      --text-primary: #1a1a18;
+      --text-secondary: #6b6b66;
+      --text-muted: #9b9b94;
+      --bg: #f5f4ef;
+      --bg-card: #ffffff;
+      --bg-surface: #f0efe9;
+      --border: rgba(0,0,0,0.10);
+      --border-strong: rgba(0,0,0,0.18);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --blue: #4a90d9;
+        --blue-dark: #2e6db8;
+        --blue-mid: #5fa8e8;
+        --blue-light: #0d2a4a;
+        --gold: #e6b020;
+        --gold-light: #2a200a;
+        --gold-border: #7a5a0a;
+        --green: #82c840;
+        --green-light: #132808;
+        --text-primary: #e8e6de;
+        --text-secondary: #a0a098;
+        --text-muted: #6a6a64;
+        --bg: #141412;
+        --bg-card: #1e1e1a;
+        --bg-surface: #252521;
+        --border: rgba(255,255,255,0.08);
+        --border-strong: rgba(255,255,255,0.16);
+      }
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 60px;
+    }
+
+    /* Subtle background pattern */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle at 20% 20%, rgba(26,86,168,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(200,151,10,0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Brand ── */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .logo-mark {
+      width: 48px; height: 48px;
+      background: var(--blue);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(26,86,168,0.3);
+      flex-shrink: 0;
+    }
+
+    .logo-inner {
+      width: 24px; height: 24px;
+      border: 2.5px solid rgba(255,255,255,0.9);
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .logo-dot {
+      width: 7px; height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(200,151,10,0.8);
+    }
+
+    .brand-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: 1px;
+    }
+
+    .brand-name span { color: var(--gold); }
+
+    .brand-tagline {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: -20px;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Progress ── */
+    .progress-wrap {
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .progress-step {
+      flex: 1; height: 4px; border-radius: 2px;
+      background: var(--border);
+      transition: background 0.4s ease;
+    }
+
+    .progress-step.done { background: var(--blue); }
+    .progress-step.active { background: var(--gold); }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.06);
+    }
+
+    .step-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 6px;
+    }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .step-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    /* ── Tabs ── */
+    .tab-row {
+      display: flex;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 0.5px solid var(--border-strong);
+      margin-bottom: 22px;
+    }
+
+    .tab-btn {
+      flex: 1; height: 38px;
+      border: none; background: transparent; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    /* ── Form ── */
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+      margin-top: 14px;
+    }
+
+    input[type=text],
+    input[type=email],
+    input[type=tel],
+    input[type=password],
+    select {
+      width: 100%;
+      padding: 0 13px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      border: 0.5px solid var(--border-strong);
+      background: var(--bg-surface);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--blue-mid);
+      box-shadow: 0 0 0 3px rgba(55,138,221,0.12);
+      background: var(--bg-card);
+    }
+
+    input::placeholder { color: var(--text-muted); }
+
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ── Upload zones ── */
+    .upload-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .upload-zone {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: 10px;
+      padding: 20px 12px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--bg-surface);
+      transition: all 0.25s;
+      user-select: none;
+    }
+
+    .upload-zone:hover {
+      border-color: var(--blue-mid);
+      background: var(--blue-light);
+    }
+
+    .upload-zone.done {
+      border-style: solid;
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+
+    .upload-zone i {
+      font-size: 26px;
+      color: var(--blue);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .upload-zone.done i { color: var(--green); }
+
+    .upload-zone p {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .upload-zone.done p { color: var(--green); font-weight: 500; }
+
+    .upload-single {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: 10px;
+      padding: 28px 12px;
+      text-align: center;
+      cursor: pointer;
+      background: var(--bg-surface);
+      transition: all 0.25s;
+    }
+
+    .upload-single:hover { border-color: var(--blue-mid); background: var(--blue-light); }
+    .upload-single.done { border-style: solid; border-color: var(--green); background: var(--green-light); }
+    .upload-single i { font-size: 36px; color: var(--blue); margin-bottom: 10px; display: block; }
+    .upload-single.done i { color: var(--green); }
+    .upload-single p { font-size: 13px; color: var(--text-secondary); }
+    .upload-single.done p { color: var(--green); font-weight: 500; }
+
+    /* ── OTP ── */
+    .otp-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 22px 0 10px;
+    }
+
+    .otp-box {
+      width: 48px; height: 58px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-strong);
+      background: var(--bg-surface);
+      font-family: 'Syne', sans-serif;
+      font-size: 26px; font-weight: 600;
+      text-align: center;
+      color: var(--text-primary);
+      transition: all 0.2s;
+      caret-color: var(--blue);
+    }
+
+    .otp-box:focus {
+      outline: none;
+      border-color: var(--blue);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 3px rgba(26,86,168,0.15);
+    }
+
+    .otp-box.filled {
+      border-color: var(--blue);
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .resend {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .resend a {
+      color: var(--blue);
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      width: 100%;
+      height: 46px;
+      border-radius: 10px;
+      margin-top: 18px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      background: var(--blue);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      letter-spacing: 0.2px;
+    }
+
+    .btn:hover {
+      background: var(--blue-dark);
+      box-shadow: 0 4px 16px rgba(26,86,168,0.3);
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--blue);
+      border: 1px solid var(--border-strong);
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .btn.secondary:hover {
+      background: var(--blue-light);
+      box-shadow: none;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .divider hr {
+      flex: 1; border: none;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .divider span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── Social ── */
+    .social-btn {
+      width: 100%; height: 42px;
+      border-radius: var(--radius-sm);
+      border: 0.5px solid var(--border-strong);
+      background: var(--bg-surface);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .social-btn:hover { background: var(--bg); }
+
+    /* ── Security note ── */
+    .security-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    .security-note i {
+      color: var(--gold);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--gold-light);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 0.5px solid var(--gold-border);
+      margin-bottom: 14px;
+    }
+
+    /* ── Success ── */
+    .success-icon {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      border: 2px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 34px;
+      color: var(--blue);
+    }
+
+    /* ── Checklist ── */
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg-surface);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      border: 0.5px solid var(--border);
+    }
+
+    .check-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .check-dot.done { background: var(--green); }
+    .check-dot.wait { background: var(--gold); }
+    .check-dot.todo { background: var(--border-strong); }
+
+    .check-text { font-size: 13px; color: var(--text-primary); flex: 1; }
+
+    .check-badge {
+      font-size: 11px; font-weight: 600;
+      padding: 3px 8px; border-radius: 5px;
+    }
+
+    .check-badge.done { background: var(--green-light); color: var(--green); }
+    .check-badge.wait { background: var(--gold-light); color: var(--gold); }
+    .check-badge.todo { background: var(--bg-surface); color: var(--text-muted); border: 0.5px solid var(--border-strong); }
+
+    .dossier-box {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      text-align: left;
+      line-height: 1.8;
+    }
+
+    .dossier-box strong { color: var(--gold); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 360px) {
+      .otp-box { width: 40px; height: 50px; font-size: 22px; }
+      .card { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="brand">
+      <div class="logo-mark">
+        <div class="logo-inner"><div class="logo-dot"></div></div>
+      </div>
+      <div class="brand-name">Tax<span>Sur</span></div>
+    </div>
+    <p class="brand-tagline">Transport simplifié · Paiement sécurisé</p>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="prog-bar">
+        <div class="progress-step active"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+      </div>
+      <div class="progress-labels" id="prog-labels">
+        <span>Compte</span>
+        <span>Identité</span>
+        <span>Documents</span>
+        <span>OTP</span>
+        <span>Confirmation</span>
+      </div>
+    </div>
+
+    <div id="app-root"></div>
+
+    <div class="footer">
+      TaxSur &copy; 2026 &nbsp;·&nbsp; Vos données sont protégées &nbsp;·&nbsp;
+      <a href="#" style="color:var(--blue);text-decoration:none">Politique de confidentialité</a>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      step: 0,
+      mode: 'register',
+      uploadedRecto: false,
+      uploadedVerso: false,
+      uploadedPhoto: false,
+    };
+
+    function setStep(n) {
+      state.step = n;
+      updateProgress();
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateProgress() {
+      const bars = document.querySelectorAll('.progress-step');
+      bars.forEach((b, i) => {
+        b.className = 'progress-step';
+        if (i < state.step) b.classList.add('done');
+        else if (i === state.step) b.classList.add('active');
+      });
+    }
+
+    function render() {
+      const steps = [renderAuth, renderPersonal, renderCNI, renderOTP, renderConfirmation];
+      document.getElementById('app-root').innerHTML = '';
+      steps[state.step]();
+    }
+
+    /* ── Step 0 : Auth ── */
+    function renderAuth() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="card">
+          <div class="step-label">Bienvenue sur TaxSur</div>
+          <div class="step-title">${state.mode === 'register' ? 'Créer un compte' : 'Se connecter'}</div>
+          <div class="step-sub">${state.mode === 'register' ? 'Rejoignez TaxSur et simplifiez vos déplacements quotidiens.' : 'Accédez à votre espace personnel TaxSur.'}</div>
+
+          <div class="tab-row">
+            <button class="tab-btn ${state.mode === 'register' ? 'active' : ''}" onclick="state.mode='register';render()">Créer un compte</button>
+            <button class="tab-btn ${state.mode === 'login' ? 'active' : ''}" onclick="state.mode='login';render()">Se connecter</button>
+          </div>
+
+          ${state.mode === 'register' ? `
+            <label>Adresse e-mail</label>
+            <input type="email" placeholder="vous@exemple.com">
+            <label>Numéro de téléphone</label>
+            <input type="tel" placeholder="+221 77 000 00 00">
+            <label>Mot de passe</label>
+            <input type="password" placeholder="Minimum 8 caractères">
+            <label>Confirmer le mot de passe</label>
+            <input type="password" placeholder="Répétez votre mot de passe">
+          ` : `
+            <label>Téléphone ou e-mail</label>
+            <input type="text" placeholder="+221 77 000 00 00">
+            <label>Mot de passe</label>
+            <input type="password" placeholder="Votre mot de passe">
+          `}
+
+          <button class="btn" onclick="setStep(1)">
+            <i class="ti ti-arrow-right"></i>
+            ${state.mode === 'register' ? 'Créer mon compte' : 'Se connecter'}
+          </button>
+
+          <div class="divider"><hr><span>ou continuer avec</span><hr></div>
+
+          <button class="social-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            Continuer avec Google
+          </button>
+
+          <div class="security-note">
+            <i class="ti ti-shield-lock"></i>
+            Connexion sécurisée · Données chiffrées · Conforme RGPD Afrique
+          </div>
+        </div>
+      `;
+    }
+
+    /* ── Step 1 : Personal info ── */
+    function renderPersonal() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="card">
+          <div class="step-label">Étape 1 sur 4</div>
+          <div class="step-title">Informations personnelles</div>
+          <div class="step-sub">Ces informations permettront d'identifier votre compte et d'émettre votre carte TaxSur.</div>
+
+          <div class="row2">
+            <div>
+              <label>Prénom</label>
+              <input type="text" placeholder="Mamadou">
+            </div>
+            <div>
+              <label>Nom de famille</label>
+              <input type="text" placeholder="Diallo">
+            </div>
+          </div>
+
+          <label>Date de naissance</label>
+          <input type="text" placeholder="JJ/MM/AAAA">
+
+          <label>Sexe</label>
+          <select>
+            <option value="">Sélectionner...</option>
+            <option>Homme</option>
+            <option>Femme</option>
+            <option>Autre / Préfère ne pas préciser</option>
+          </select>
+
+          <label>Pays de résidence</label>
+          <select>
+            <option value="">Sélectionner...</option>
+            <option>Sénégal</option>
+            <option>Côte d'Ivoire</option>
+            <option>Mali</option>
+            <option>Burkina Faso</option>
+            <option>Guinea</option>
+            <option>Togo</option>
+            <option>Bénin</option>
+            <option>Niger</option>
+            <option>Ghana</option>
+            <option>Nigeria</option>
+            <option>Cameroun</option>
+            <option>RDC</option>
+            <option>Congo-Brazzaville</option>
+            <option>Autre</option>
+          </select>
+
+          <label>Ville</label>
+          <input type="text" placeholder="Dakar">
+
+          <label>Adresse postale (optionnel)</label>
+          <input type="text" placeholder="Rue 10, Point E, Dakar">
+
+          <button class="btn" onclick="setStep(2)">
+            <i class="ti ti-arrow-right"></i>
+            Continuer
+          </button>
+          <button class="btn secondary" onclick="setStep(0)">
+            <i class="ti ti-arrow-left"></i>
+            Retour
+          </button>
+        </div>
+      `;
+    }
+
+    /* ── Step 2 : Documents ── */
+    function renderCNI() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="card">
+          <div class="step-label">Étape 2 sur 4</div>
+          <div class="step-title">Pièce d'identité & photo</div>
+          <div class="step-sub">Ajoutez votre CNI (recto et verso) ainsi qu'une photo de vous pour valider votre identité.</div>
+
+          <p style="font-size:12px;font-weight:500;color:var(--text-secondary);margin-bottom:8px">
+            <i class="ti ti-id" style="font-size:14px;vertical-align:-2px"></i>
+            Photo de la CNI (Carte Nationale d'Identité)
+          </p>
+          <div class="upload-grid">
+            <div class="upload-zone ${state.uploadedRecto ? 'done' : ''}" onclick="toggleUpload('recto')">
+              <i class="ti ${state.uploadedRecto ? 'ti-circle-check' : 'ti-id'}"></i>
+              <p>${state.uploadedRecto ? 'Recto ajouté ✓' : 'Recto CNI\nCliquez pour ajouter'}</p>
+            </div>
+            <div class="upload-zone ${state.uploadedVerso ? 'done' : ''}" onclick="toggleUpload('verso')">
+              <i class="ti ${state.uploadedVerso ? 'ti-circle-check' : 'ti-id'}"></i>
+              <p>${state.uploadedVerso ? 'Verso ajouté ✓' : 'Verso CNI\nCliquez pour ajouter'}</p>
+            </div>
+          </div>
+
+          <p style="font-size:12px;font-weight:500;color:var(--text-secondary);margin:18px 0 8px">
+            <i class="ti ti-camera-selfie" style="font-size:14px;vertical-align:-2px"></i>
+            Photo de vous (selfie)
+          </p>
+          <div class="upload-single ${state.uploadedPhoto ? 'done' : ''}" onclick="toggleUpload('photo')">
+            <i class="ti ${state.uploadedPhoto ? 'ti-circle-check' : 'ti-camera-selfie'}"></i>
+            <p>${state.uploadedPhoto ? 'Photo enregistrée avec succès ✓' : 'Appuyez pour prendre ou importer votre photo'}</p>
+          </div>
+
+          <div class="security-note">
+            <i class="ti ti-lock"></i>
+            Photos chiffrées · Utilisées uniquement pour la vérification KYC · Jamais partagées
+          </div>
+
+          <button class="btn" onclick="${state.uploadedRecto && state.uploadedVerso && state.uploadedPhoto ? 'setStep(3)' : 'alert(\'Veuillez ajouter le recto CNI, le verso CNI, et votre selfie avant de continuer.\')'}">
+            <i class="ti ti-arrow-right"></i>
+            ${state.uploadedRecto && state.uploadedVerso && state.uploadedPhoto ? 'Continuer' : 'Compléter les documents pour continuer'}
+          </button>
+          <button class="btn secondary" onclick="setStep(1)">
+            <i class="ti ti-arrow-left"></i>
+            Retour
+          </button>
+        </div>
+      `;
+    }
+
+    function toggleUpload(which) {
+      if (which === 'recto') state.uploadedRecto = !state.uploadedRecto;
+      if (which === 'verso') state.uploadedVerso = !state.uploadedVerso;
+      if (which === 'photo') state.uploadedPhoto = !state.uploadedPhoto;
+      render();
+    }
+
+    /* ── Step 3 : OTP ── */
+    function renderOTP() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="card">
+          <div class="step-label">Étape 3 sur 4</div>
+          <div class="step-title">Vérification SMS</div>
+          <div class="step-sub">Un code à 6 chiffres a été envoyé à votre numéro de téléphone. Entrez-le ci-dessous.</div>
+
+          <div style="text-align:center;margin-bottom:4px">
+            <span style="font-size:13px;color:var(--text-muted)">Code envoyé au</span>
+            <span style="font-size:13px;font-weight:600;color:var(--text-primary)"> +221 77 ••• ••71</span>
+          </div>
+
+          <div class="otp-row" id="otp-row">
+            ${[0,1,2,3,4,5].map(i => `
+              <input type="text" maxlength="1" class="otp-box" id="otp-${i}"
+                inputmode="numeric" pattern="[0-9]"
+                oninput="otpInput(${i}, this)"
+                onkeydown="otpKey(event, ${i})"
+                onfocus="this.select()">
+            `).join('')}
+          </div>
+
+          <div class="resend">
+            Vous n'avez pas reçu le code ?
+            <a onclick="alert('Code renvoyé avec succès !')">Renvoyer</a>
+          </div>
+
+          <button class="btn" onclick="setStep(4)">
+            <i class="ti ti-shield-check"></i>
+            Vérifier le code
+          </button>
+          <button class="btn secondary" onclick="setStep(2)">
+            <i class="ti ti-arrow-left"></i>
+            Retour
+          </button>
+        </div>
+      `;
+      setTimeout(() => document.getElementById('otp-0')?.focus(), 80);
+    }
+
+    function otpInput(i, el) {
+      el.value = el.value.replace(/[^0-9]/g, '');
+      if (el.value) {
+        el.classList.add('filled');
+        if (i < 5) document.getElementById('otp-' + (i + 1))?.focus();
+      } else {
+        el.classList.remove('filled');
+      }
+    }
+
+    function otpKey(e, i) {
+      if (e.key === 'Backspace') {
+        const el = document.getElementById('otp-' + i);
+        if (!el.value && i > 0) {
+          document.getElementById('otp-' + (i - 1))?.focus();
+        }
+        el.classList.remove('filled');
+      }
+    }
+
+    /* ── Step 4 : Confirmation ── */
+    function renderConfirmation() {
+      document.getElementById('app-root').innerHTML = `
+        <div class="card" style="text-align:center">
+          <div class="success-icon">
+            <i class="ti ti-circle-check"></i>
+          </div>
+          <div class="badge">
+            <i class="ti ti-clock" style="font-size:12px"></i>
+            En attente de validation
+          </div>
+          <div class="step-title" style="margin-bottom:8px">Inscription reçue !</div>
+          <div class="step-sub" style="margin-bottom:22px">
+            Vos informations ont bien été enregistrées. Notre équipe va vérifier votre dossier sous <strong>24 à 48h</strong>. Vous recevrez un SMS dès validation.
+          </div>
+
+          <div style="text-align:left">
+            <div class="check-row">
+              <div class="check-dot done"></div>
+              <span class="check-text">Informations personnelles</span>
+              <span class="check-badge done">Soumis</span>
+            </div>
+            <div class="check-row">
+              <div class="check-dot done"></div>
+              <span class="check-text">Documents CNI</span>
+              <span class="check-badge done">Soumis</span>
+            </div>
+            <div class="check-row">
+              <div class="check-dot done"></div>
+              <span class="check-text">Vérification OTP SMS</span>
+              <span class="check-badge done">Validé</span>
+            </div>
+            <div class="check-row">
+              <div class="check-dot wait"></div>
+              <span class="check-text">Validation par l'équipe TaxSur</span>
+              <span class="check-badge wait">En attente</span>
+            </div>
+            <div class="check-row">
+              <div class="check-dot todo"></div>
+              <span class="check-text">Activation de votre carte</span>
+              <span class="check-badge todo">À venir</span>
+            </div>
+          </div>
+
+          <div class="dossier-box">
+            <strong>Numéro de dossier :</strong> TSR-2026-00847<br>
+            <strong>Date de soumission :</strong> ${new Date().toLocaleDateString('fr-FR', {day:'2-digit', month:'long', year:'numeric'})}<br>
+            Conservez ce numéro pour suivre l'avancement de votre dossier.
+          </div>
+
+          <button class="btn" style="margin-top:22px" onclick="resetApp()">
+            <i class="ti ti-home"></i>
+            Retour à l'accueil
+          </button>
+        </div>
+      `;
+    }
+
+    function resetApp() {
+      state.step = 0;
+      state.mode = 'register';
+      state.uploadedRecto = false;
+      state.uploadedVerso = false;
+      state.uploadedPhoto = false;
+      updateProgress();
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
